@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="tooltech.css">
+</head>
+
+<body>
+     <header>
+      <nav class="navbar" id="navbar">
+        <div class="company-name">
+          <h3><a href="tooltech.html">Tooltech</a></h3>
+          <p>technologies</p>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+          <a href="about.html">Info</a>
+          <a href="#">Cart (<span id="cCount">0</span>)</a>
+          <a href="#">Wishlist (<span id="wCount">0</span>)</a>
+        </div>
+         <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+      </nav>
+    </header>
+    <main>
+        <!-- HERO -->
+<section class="about-hero">
+<h2>Professional IT Solutions Provider</h2>
+<p>
+Specializing in web development, OS installation, networking, computer training, repair, and maintenance services
+</p>
+<button class="about-btn about-btn-primary">Our Services</button>
+<button class="about-btn about-btn-secondary">Contact Us</button>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<div class="about-us">
+<h2>About Us</h2>
+<p>
+We are a professional IT company with over <b>8 years of experience</b>.
+We specialize in website development, OS installation (Windows, Linux, macOS),
+networking, computer training, and IT support services.
+</p>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="about-services">
+<h2 style="text-align:center;color:#f900fe;">Our Services</h2>
+
+<div class="about-services">
+<div class="about-card"><h3>Website Development</h3></div>
+<div class="about-card"><h3>OS Installation</h3></div>
+<div class="about-card"><h3>Networking</h3></div>
+<div class="about-card"><h3>Computer Training</h3></div>
+<div class="about-card"><h3>IT Support</h3></div>
+</div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="about-portfolio">
+<h2 style="text-align:center;color:#f900fe;">Our Projects</h2>
+
+<div class="about-portfolio">
+
+<div class="about-project">
+<img src="https://images.unsplash.com/photo-1581090700227-1e8e1b2a1f9c">
+<div class="about-project-content">
+<h3>School Management System</h3>
+<p>Web-based system for managing students and staff.</p>
+</div>
+</div>
+
+<div class="about-project">
+<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71">
+<div class="about-project-content">
+<h3>Business Website</h3>
+<p>Modern responsive business landing page.</p>
+</div>
+</div>
+
+<div class="about-project">
+<img src="https://images.unsplash.com/photo-1551703599-5a4f4e2b3d3a">
+<div class="about-project-content">
+<h3>Network Setup Project</h3>
+<p>LAN setup for office environment.</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="about-contact">
+<div class="about-contact">
+<h2>Contact Us</h2>
+
+<form onsubmit="sendMail(event)">
+<input type="text" id="name" placeholder="Your Name" required>
+<input type="email" id="email" placeholder="Your Email" required>
+<textarea id="message" placeholder="Your Message" required></textarea>
+<button class="about-send-btn" type="submit">Send Message</button>
+</form>
+
+</div>
+</section>
+        <section class="about section-padding">
+            <div class="container">
+                <p>
+    Welcome to Tooltech technologies where we focus mainly on imapcting knowledge in students or anyone seeking more knowledge
+    IT field. We believe technology is for everyone who is willing to know more and share for a better growth. Of course the information
+    provided on this website is for educational purpose only.
+</p>
+    
+
+
+            </div>
+
+        </section>
+        <section class="topics section-padding">
+
+        </section>
+
+        <section class="blog section-padding">
+
+        </section>
+
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        <div class="footer">
+            <div class="top-footer"></div>
+            <div class="bottom-footer"></div>
+
+        </div>
+
+
+    </footer>
+
+
+</body>
+
+</html>
