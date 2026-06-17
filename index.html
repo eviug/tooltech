@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tooltech Shop</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar" id="navbar">
+        <div class="company-name">
+          <h3><a href="tooltech.html">Tooltech</a></h3>
+          <p>technologies</p>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+          <a href="about.html">Info</a>
+          <a href="#">Cart (<span id="cCount">0</span>)</a>
+          <a href="#">Wishlist (<span id="wCount">0</span>)</a>
+        </div>
+         <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+      </nav>
+    </header>
+
+    <!-- SLIDER -->
+    <section class="slider">
+      <img class="slide active" src="img/it-lab.webp" />
+      <img class="slide" src="img/it-lab.webp" />
+      <img class="slide" src="img/bspwm.png" />
+
+      <div class="hero-text">
+        <h2>Tooltech Technologies</h2>
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <div id="tabContent">Click a tab to view featured items</div>
+    <div class="tabs">
+      <button class="offer" onclick="showTab('offers')">
+        Offer of the Day
+      </button>
+      <button class="coming" onclick="showTab('coming')">Coming Soon</button>
+    </div>
+
+    <!-- ALWAYS VISIBLE PRODUCTS SECTION -->
+    <h2 class="section-title">All Products</h2>
+    <div class="product-grid" id="productGrid"></div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal" onclick="closeModal()">
+      <div class="modal-box" onclick="event.stopPropagation()">
+        <img id="mImg" />
+        <h3 id="mName"></h3>
+        <p id="mDesc"></p>
+        <p id="mPrice"></p>
+      </div>
+    </div>
+
+    <script>
+      /* PRODUCTS */
+      const products = [
+        {
+          id: "tt-01",
+          name: "OTG Type C",
+          price: 2000,
+          category: "otg",
+          image: "img/otg.jpg",
+          description: "Remax USB 2.0 Type C",
+        },
+
+        {
+          id: "tt-02",
+          name: "OTG Micro USB",
+          price: 2000,
+          category: "otg",
+          image: "img/otg.jpg",
+          description: "Remax USB 2.0 Micro USB",
+        },
+
+        {
+          id: "tt-03",
+          name: "Memory Card 2GB",
+          price: 10000,
+          category: "memory",
+          image: "img/memory-card-2GB.jpg",
+          description: "Boost High Speed",
+        },
+
+        {
+          id: "tt-04",
+          name: "Memory Card 4GB",
+          price: 15000,
+          category: "memory",
+          image: "img/memory-card-4GB.jpg",
+          description: "Boost High Speed",
+        },
+
+        {
+          id: "tt-05",
+          name: "Memory Card 8GB",
+          price: 18000,
+          category: "memory",
+          image: "img/memory-card-8GB.jpg",
+          description: "Boost High Speed",
+        },
+
+        {
+          id: "tt-06",
+          name: "Flash Disk 4GB",
+          price: 13500,
+          category: "flash",
+          image: "img/flash-disk-4GB.jpg",
+          description: "Sandisk Ultra Luxe",
+        },
+
+        {
+          id: "tt-07",
+          name: "Flash Disk 8GB",
+          price: 15000,
+          category: "flash",
+          image: "img/flash-disk-8GB.jpg",
+          description: "Sandisk Cruzer Blade",
+        },
+
+        {
+          id: "tt-08",
+          name: "Lightning Cable",
+          price: 7000,
+          category: "cable",
+          image: "img/iphone-cable.jpg",
+          description: "Lightning To USB",
+        },
+
+        {
+          id: "tt-09",
+          name: "Type C Cable",
+          price: 12000,
+          category: "cable",
+          image: "img/type-c.webp",
+          description: "Oraimo Ultra Durable",
+        },
+
+        {
+          id: "tt-010",
+          name: "Micro USB Cable",
+          price: 6000,
+          category: "cable",
+          image: "img/usb-micro-usb.jpg",
+          description: "Oraimo Ultra Durable",
+        },
+
+        {
+          id: "tt-011",
+          name: "Oraimo Earphones",
+          price: 10000,
+          category: "audio",
+          image: "img/oraimo-earphones.jpg",
+          description: "Deep Bass With Mic",
+        },
+      ];
+
+      const offers = [products[0], products[1]];
+      const coming = [products[2], products[3]];
+
+      /* STATE */
+      let cart = [];
+      let wishlist = [];
+      let activeTab = null;
+
+      /* RENDER MAIN GRID */
+      function renderMain() {
+        document.getElementById("productGrid").innerHTML = products
+          .map(
+            (p) => `
+<div class="card" onclick="openModal('${p.id}')">
+
+<img src="${p.image}">
+
+<div class="card-content">
+<h3>${p.name}</h3>
+<p>${p.description}</p>
+<div class="price">UGX ${p.price}</div>
+
+<div class="actions">
+<button class="wish" onclick="event.stopPropagation();addWish('${p.id}')">❤️ Wishlist</button>
+<button class="cart" onclick="event.stopPropagation();addCart('${p.id}')">🛒Cart</button>
+</div>
+
+</div>
+</div>
+`,
+          )
+          .join("");
+      }
+
+      /* TAB CONTENT */
+      function showTab(type) {
+        const box = document.getElementById("tabContent");
+
+        if (activeTab === type) {
+          box.innerHTML = "Click a tab to view featured items";
+          activeTab = null;
+          return;
+        }
+
+        activeTab = type;
+
+        let items = type === "offers" ? offers : coming;
+
+        box.innerHTML = `
+<div class="product-grid">
+${items
+  .map(
+    (p) => `
+<div class="card" onclick="openModal('${p.id}')">
+<img src="${p.image}">
+<div class="card-content">
+<h3>${p.name}</h3>
+<p>${p.description}</p>
+<div class="price">UGX ${p.price}</div>
+</div>
+</div>
+`,
+  )
+  .join("")}
+</div>
+`;
+      }
+
+      /* CART */
+      function addCart(id) {
+        if (!cart.find((i) => i.id === id)) {
+          cart.push(products.find((p) => p.id === id));
+        }
+        updateCounts();
+      }
+
+      /* WISHLIST */
+      function addWish(id) {
+        if (!wishlist.find((i) => i.id === id)) {
+          wishlist.push(products.find((p) => p.id === id));
+        }
+        updateCounts();
+      }
+
+      /* COUNTS */
+      function updateCounts() {
+        document.getElementById("cCount").innerText = cart.length;
+        document.getElementById("wCount").innerText = wishlist.length;
+      }
+
+      /* MODAL */
+      function openModal(id) {
+        let p = products.find((x) => x.id === id);
+        document.getElementById("mImg").src = p.image;
+        document.getElementById("mName").innerText = p.name;
+        document.getElementById("mDesc").innerText = p.description;
+        document.getElementById("mPrice").innerText = "UGX " + p.price;
+        document.getElementById("modal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("modal").style.display = "none";
+      }
+
+      /* INIT */
+      renderMain();
+      updateCounts();
+      const navbar = document.getElementById("navbar");
+    const navLinks = document.getElementById("navLinks");
+    const hamburger = document.getElementById("hamburger");
+    const links = document.querySelectorAll(".nav-links a");
+    const sections = document.querySelectorAll("section");
+
+    function toggleMenu() {
+        navLinks.classList.toggle("show");
+        hamburger.classList.toggle("active");
+    }
+
+    // Sticky navbar
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add("sticky");
+        } else {
+            navbar.classList.remove("sticky");
+        }
+
+        // Scroll spy
+        let current = "";
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.clientHeight;
+
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                current = section.getAttribute("id");
+            }
+        });
+
+        links.forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === "#" + current) {
+                link.classList.add("active");
+            }
+        });
+    });
+
+    // Click behavior
+    links.forEach(link => {
+        link.addEventListener("click", function () {
+            links.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
+
+            navLinks.classList.remove("show");
+            hamburger.classList.remove("active");
+        });
+    });
+    </script>
+  </body>
+  </html>
