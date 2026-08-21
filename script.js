@@ -108,7 +108,9 @@
 
       /* RENDER MAIN GRID */
       function renderMain() {
-        document.getElementById("productGrid").innerHTML = products
+        const grid = document.getElementById("productGrid");
+        if (!grid) return; // page has no product grid (e.g. about.html) — skip safely
+        grid.innerHTML = products
           .map(
             (p) => `
 <div class="card" onclick="openModal('${p.id}')">
@@ -140,6 +142,7 @@
       /* TAB CONTENT */
       function showTab(type) {
         const box = document.getElementById("tabContent");
+        if (!box) return;
 
         if (activeTab === type) {
           box.innerHTML = "Click a tab to view featured items";
@@ -287,3 +290,44 @@ function sendCartWhatsApp(){
  cart.forEach(item=>{ text += `• ${item.name} x ${item.qty}%0A`; });
  window.open(`https://wa.me/256741003162?text=${text}`,'_blank');
 }
+
+/* CONTACT FORM (about.html) */
+function sendMail(event){
+  event.preventDefault();
+
+  const nameEl = document.getElementById('name');
+  const emailEl = document.getElementById('email');
+  const messageEl = document.getElementById('message');
+  if (!nameEl || !emailEl || !messageEl) return;
+
+  const name = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const message = messageEl.value.trim();
+
+  if (!name || !email || !message) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  // Route through WhatsApp, since that's the site's working contact channel
+  const text = encodeURIComponent(
+    `Hello Tooltech Technologies,\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`
+  );
+  window.open(`https://wa.me/256741003162?text=${text}`, '_blank');
+
+  event.target.reset();
+}
+
+/* KEEP PAGE CONTENT CLEAR OF THE FIXED HEADER ON EVERY SCREEN SIZE */
+function setHeaderOffset() {
+  const header = document.querySelector('header');
+  if (header) {
+    document.body.style.paddingTop = header.offsetHeight + 'px';
+  }
+}
+window.addEventListener('load', setHeaderOffset);
+window.addEventListener('resize', setHeaderOffset);
+
+/* FOOTER YEAR */
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();

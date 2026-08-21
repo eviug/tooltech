@@ -2,13 +2,25 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: courier prime, monospace;
+    font-family: "Courier Prime", monospace;
+}
+
+html {
+    overflow-x: hidden;
 }
 
 body {
     background: #2e343e;
     color: white;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    /* Fallback offset for the fixed header; script.js sets the exact value on load/resize */
+    padding-top: 76px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
 }
 
 /* HEADER */
@@ -25,24 +37,40 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
+    flex-wrap: nowrap;
+    gap: 10px;
 }
 
-/*
 .navbar.sticky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
-
-*/
-
 
 .company-name {
 
     line-height: 1;
     padding: 0 0.6rem;
+    flex-shrink: 0;
+}
+
+/* Groups the cart button and hamburger together so they always stay
+   visible and aligned, on every screen size */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.cart-btn {
+    background: #F900FE;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    font-family: inherit;
 }
 
 .company-name a {
@@ -144,6 +172,21 @@ header {
     }
 }
 
+@media (max-width: 420px) {
+    .company-name a {
+        font-size: 1.2rem;
+    }
+
+    .company-name p {
+        font-size: 0.75rem;
+    }
+
+    .cart-btn {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+}
+
 /* SLIDER */
 .slider {
     max-width: 100%;
@@ -195,19 +238,17 @@ header {
     font-weight: 500;
     font-size: 1.1rem;
     border: 1px solid white;
+    flex: 1;
 }
 
 .tabs .offer {
     background: #0e1c29;
-    ;
-    width: 50%;
     border-radius: 0.5rem;
     color: #8f9f55
 }
 
 .coming {
     background: #0e1c29;
-    width: 50%;
     border-radius: 0.5rem;
     color: #F900FE;
 }
@@ -231,6 +272,15 @@ header {
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#tabContent,
+.section-title {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .card {
@@ -298,7 +348,10 @@ header {
 .modal-box {
     background: #0e1c29;
     padding: 20px;
-    width: 320px;
+    width: 90%;
+    max-width: 320px;
+    max-height: 85vh;
+    overflow-y: auto;
     border-radius: 10px;
     text-align: center;
 }
@@ -325,8 +378,7 @@ header {
 
 
 .about-hero{
-height:100vh;
-margin-top:4.4rem;
+min-height:80vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -356,7 +408,8 @@ padding:12px 20px;
 border:none;
 cursor:pointer;
 border-radius:5px;
-
+display:inline-block;
+text-decoration:none;
 }
 
 .about-btn-primary{
@@ -501,10 +554,83 @@ border-radius:5px;
 
 /* FOOTER */
 footer{
-text-align:center;
-padding:20px;
+padding:40px 20px 20px;
 background:#0e1c29;
 color:#888;
+}
+
+.top-footer{
+max-width:1100px;
+margin:0 auto;
+display:flex;
+flex-wrap:wrap;
+justify-content:space-between;
+gap:30px;
+text-align:left;
+}
+
+.footer-brand{
+max-width:400px;
+}
+
+.footer-brand h3{
+color:#F900FE;
+font-size:1.3rem;
+margin-bottom:10px;
+}
+
+.footer-brand h3 span{
+color:#8f9f55;
+font-size:0.9rem;
+font-weight:400;
+}
+
+.footer-brand p{
+color:#aaa;
+line-height:1.6;
+font-size:0.95rem;
+}
+
+.footer-links h4{
+color:#fff;
+margin-bottom:12px;
+font-size:1rem;
+}
+
+.footer-links{
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.footer-links a{
+color:#8f9f55;
+text-decoration:none;
+font-size:0.95rem;
+transition:0.3s;
+}
+
+.footer-links a:hover{
+color:#F900FE;
+}
+
+.bottom-footer{
+text-align:center;
+margin-top:30px;
+padding-top:20px;
+border-top:1px solid #1c2b3e;
+font-size:0.85rem;
+}
+
+@media(max-width:600px){
+.top-footer{
+text-align:center;
+justify-content:center;
+}
+
+.footer-brand{
+max-width:100%;
+}
 }
 
 /* RESPONSIVE */
@@ -521,5 +647,10 @@ grid-template-columns:1fr;
 
 .about-hero h2{
 font-size:28px;
+}
+
+.about-hero{
+min-height:60vh;
+padding:40px 20px;
 }
 }
