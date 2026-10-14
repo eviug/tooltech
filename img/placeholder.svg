@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Photo placeholder">
+  <rect width="800" height="600" fill="#0e1c29"/>
+  <rect x="24" y="24" width="752" height="552" rx="14" fill="none" stroke="#8f9f55" stroke-width="3" stroke-dasharray="14 10"/>
+  <g fill="none" stroke="#f900fe" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="320" y="220" width="160" height="120" rx="12"/>
+    <circle cx="400" cy="280" r="30"/>
+    <path d="M360 220l12-18h56l12 18"/>
+  </g>
+  <text x="400" y="400" fill="#ffffff" font-family="monospace" font-size="30" text-anchor="middle">Your photo goes here</text>
+  <text x="400" y="440" fill="#8f9f55" font-family="monospace" font-size="20" text-anchor="middle">Tooltech Technologies</text>
+</svg>
